@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ePb-MW-1Pf">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Base Navigation Controller-->
+        <scene sceneID="BbY-Da-Y1l">
+            <objects>
+                <navigationController id="ePb-MW-1Pf" customClass="BaseNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O2L-N8-HFm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="QDX-GO-ba9" kind="relationship" relationship="rootViewController" id="MET-Ac-YCi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VSp-2Y-aVO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-294" y="303"/>
+        </scene>
+        <!--Auth View Controller-->
+        <scene sceneID="anb-zf-0Zo">
+            <objects>
+                <viewController id="QDX-GO-ba9" customClass="AuthViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nj2-ik-LeW"/>
+                        <viewControllerLayoutGuide type="bottom" id="85q-ad-bfv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9ig-B8-GAz">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Wd-Ve-G7B">
+                                <rect key="frame" x="250" y="170" width="100" height="100"/>
+                                <color key="backgroundColor" red="0.7843137255" green="0.7843137255" blue="0.7843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="13Y-nV-7sM"/>
+                                    <constraint firstAttribute="width" constant="100" id="NUV-Kr-KJm"/>
+                                </constraints>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="F5D4A91FEC3D351159C79F9463770C8D" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jVY-MY-umE">
+                                <rect key="frame" x="153" y="338" width="293" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入报名时给您下发的授权码" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Zu-g8-5T4">
+                                <rect key="frame" x="153" y="300" width="293" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjy-WB-5vp">
+                                <rect key="frame" x="282" y="398" width="36" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="授权">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="authBtnClick:" destination="QDX-GO-ba9" eventType="touchUpInside" id="tTl-8o-a20"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jVY-MY-umE" firstAttribute="leading" secondItem="6Zu-g8-5T4" secondAttribute="leading" id="1xQ-AM-3S5"/>
+                            <constraint firstAttribute="centerX" secondItem="Sjy-WB-5vp" secondAttribute="centerX" id="2s9-gr-Ajf"/>
+                            <constraint firstItem="8Wd-Ve-G7B" firstAttribute="top" secondItem="9ig-B8-GAz" secondAttribute="top" constant="200" id="3VD-ff-Bzb"/>
+                            <constraint firstAttribute="centerX" secondItem="jVY-MY-umE" secondAttribute="centerX" id="Ax0-rg-cX7"/>
+                            <constraint firstItem="jVY-MY-umE" firstAttribute="top" secondItem="6Zu-g8-5T4" secondAttribute="bottom" constant="20" id="H38-KT-EDT"/>
+                            <constraint firstAttribute="centerX" secondItem="6Zu-g8-5T4" secondAttribute="centerX" id="OM5-om-ClT"/>
+                            <constraint firstAttribute="centerY" secondItem="8Wd-Ve-G7B" secondAttribute="centerY" constant="80" id="Wxo-qD-Q2Y"/>
+                            <constraint firstItem="Sjy-WB-5vp" firstAttribute="top" secondItem="jVY-MY-umE" secondAttribute="bottom" constant="30" id="ZEO-ZJ-dJC"/>
+                            <constraint firstItem="6Zu-g8-5T4" firstAttribute="top" secondItem="8Wd-Ve-G7B" secondAttribute="bottom" constant="30" id="mVZ-w6-eOe"/>
+                            <constraint firstItem="jVY-MY-umE" firstAttribute="trailing" secondItem="6Zu-g8-5T4" secondAttribute="trailing" id="saI-Ky-hQ5"/>
+                            <constraint firstAttribute="centerX" secondItem="8Wd-Ve-G7B" secondAttribute="centerX" id="v9a-Xp-i77"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="3VD-ff-Bzb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="L01-pU-Y5e"/>
+                    <connections>
+                        <outlet property="authCodeLabel" destination="jVY-MY-umE" id="QLx-ZF-X78"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ifz-Rl-ADc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="303"/>
+        </scene>
+    </scenes>
+</document>

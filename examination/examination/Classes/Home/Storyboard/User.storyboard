@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="doP-gQ-oby">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Base Navigation Controller-->
+        <scene sceneID="DXp-xP-uoc">
+            <objects>
+                <navigationController id="doP-gQ-oby" customClass="BaseNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="JOJ-Tv-sDB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y26-NL-Khq" kind="relationship" relationship="rootViewController" id="0SJ-5f-0aZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="srx-nj-goB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-663" y="33"/>
+        </scene>
+        <!--User Login View Controller-->
+        <scene sceneID="LmB-eX-0vm">
+            <objects>
+                <viewController storyboardIdentifier="UserLoginViewController" id="Y26-NL-Khq" customClass="UserLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lgs-HQ-Wda"/>
+                        <viewControllerLayoutGuide type="bottom" id="aKt-fd-Rcs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BMO-PZ-xAw">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所使用的授权码：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cC-2N-CCn">
+                                <rect key="frame" x="236" y="171" width="128" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDc-Dc-VlF">
+                                <rect key="frame" x="285" y="420" width="30" height="30"/>
+                                <state key="normal" title="登录">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="btnClick:" destination="Y26-NL-Khq" eventType="touchUpInside" id="4yj-nR-koQ"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYo-ii-8lQ" userLabel="code">
+                                <rect key="frame" x="300" y="210" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="TYo-ii-8lQ" secondAttribute="centerX" id="07S-1W-6hj"/>
+                            <constraint firstItem="TYo-ii-8lQ" firstAttribute="top" secondItem="7cC-2N-CCn" secondAttribute="bottom" constant="20" id="EUA-eZ-3q1"/>
+                            <constraint firstItem="aKt-fd-Rcs" firstAttribute="top" secondItem="rDc-Dc-VlF" secondAttribute="bottom" constant="150" id="MsQ-z2-7qz"/>
+                            <constraint firstAttribute="centerX" secondItem="rDc-Dc-VlF" secondAttribute="centerX" id="bgr-FH-7gp"/>
+                            <constraint firstAttribute="centerX" secondItem="7cC-2N-CCn" secondAttribute="centerX" id="gk5-Ff-mgD"/>
+                            <constraint firstAttribute="centerY" secondItem="7cC-2N-CCn" secondAttribute="centerY" constant="120" id="wqd-GG-1Ar"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="9rb-VE-c8k"/>
+                    <connections>
+                        <outlet property="auth_code" destination="TYo-ii-8lQ" id="o1r-xb-550"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hpv-iG-5qr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="150" y="33"/>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,51 @@
+//
+//  PCH.pch
+//  examination
+//
+//  Created by 李晓 on 15/9/7.
+//  Copyright (c) 2015年 exam. All rights reserved.
+//
+
+#ifndef examination_PCH_pch
+#define examination_PCH_pch
+
+// 全局使用的分类引用
+#ifdef __OBJC__
+
+// 存入的授权码Key
+#define KEY_APP_AUCH_CODE @"key_app_auth_code"
+
+/** 签名中 apiver(必填项) */
+#define kSignature_apiver @"v1"
+
+/** 签名中需要的key(必填项)  */
+#define kSignature_key @"kdt201509"
+
+/** 服务器域名  */
+#define RTServersURL @"http://api.kdt.webbig.cn/api"
+
+#define kExam_Status_UnripeBackageColor kRGBColor(254, 216, 51, 1)
+#define kExam_Status_SuccessBackageColor kRGBColor(127, 230, 72, 1)
+#define kExam_Status_LockBackageColor kRGBColor(234, 76, 70, 1)
+
+
+
+// 授权绑定
+#define authcode @"bind"
+// 登录
+#define login @"token"
+// 用户课程
+#define course @"course"
+
+
+
+
+#import <ImportClass.h>
+#import "SkywareHttpTool.h"
+#import "CHKeychainTool.h"
+#import "SystemDeviceTool.h"
+#import "Instance.h"
+
+
+#endif
+#endif
