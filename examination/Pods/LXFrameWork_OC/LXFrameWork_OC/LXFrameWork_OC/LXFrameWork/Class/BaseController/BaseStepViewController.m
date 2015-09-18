@@ -62,14 +62,13 @@
         CGFloat btnWidth = kWindowWidth / count;
         
         for (int i = 0; i < _titleArray.count; i++) {
-            InterchangeButton *btn = [[InterchangeButton alloc] initWithFrame:CGRectMake(i * btnWidth, 0, btnWidth, 44)];
+            InterchangeButton *btn = [[InterchangeButton alloc] initWithFrame:CGRectMake(i * btnWidth,0, btnWidth, 44)];
             btn.tag = i + 1;
             [btn setTitleColor:[UIColor redColor] forState:UIControlStateSelected];
             [btn setTitle:[NSString stringWithFormat:@"%d %@",i+1,_titleArray[i]]forState:UIControlStateNormal];
             [btn setImage:[BundleTool getImage:@"Arrow_Left" FromBundle:LXFrameWorkBundle] forState:UIControlStateNormal];
             if (i == _titleArray.count - 1) {
                 [btn setImage:nil forState:UIControlStateNormal];
-                btn.x +=5;
             }
             [self.stepHeadView addSubview:btn];
         }

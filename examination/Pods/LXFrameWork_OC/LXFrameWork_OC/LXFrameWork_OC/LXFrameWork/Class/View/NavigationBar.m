@@ -82,8 +82,8 @@
     centerView.frame = CGRectZero;
     [_btnView addSubview:centerView];
     //    centerView.backgroundColor = [UIColor yellowColor];
-    [centerView autoAlignAxisToSuperviewMarginAxis:ALAxisHorizontal];
-    [centerView autoAlignAxisToSuperviewMarginAxis:ALAxisVertical];
+    [centerView autoAlignAxisToSuperviewAxis:ALAxisHorizontal];
+    [centerView autoAlignAxisToSuperviewAxis:ALAxisVertical];
     [centerView autoSetDimensionsToSize:CGSizeMake(rect.size.width == 0 ? 200 :rect.size.width, rect.size.height == 0 ? 44 : rect.size.height)];
 }
 

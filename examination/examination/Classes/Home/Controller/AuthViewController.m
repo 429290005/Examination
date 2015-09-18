@@ -7,7 +7,7 @@
 //
 
 #import "AuthViewController.h"
-#import "UserLoginViewController.h"
+#import "HomeViewController.h"
 #import "CHKeychainTool.h"
 
 @interface AuthViewController ()
@@ -41,8 +41,12 @@
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
         if ([result.message isEqualToString:@"200"]) {
             [CHKeychainTool save:KEY_APP_AUCH_CODE data:self.authCodeLabel.text];
-            UserLoginViewController *user = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
-            [UIWindow changeWindowRootViewController:user animated:YES];
+            
+            Instance *instance = [Instance sharedInstance];
+            instance.token = result.token;
+            
+            HomeViewController *home = [[UIStoryboard storyboardWithName:@"Home" bundle:nil]instantiateInitialViewController];
+            [UIWindow changeWindowRootViewController:home animated:YES];
         }else if ([result.message isEqualToString:@"412"]){
             [SVProgressHUD showErrorWithStatus:@"该授权码已经绑定过"];
         }else{

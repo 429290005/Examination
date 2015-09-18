@@ -35,9 +35,15 @@
 // 登录
 #define login @"token"
 // 用户课程
-#define course @"course"
-
-
+#define userCourse @"course"
+// 考卷
+#define exam @"exam"
+// 考题
+#define question @"question"
+// 用户
+#define user @"user"
+// 软件信息
+#define infoURL @"info"
 
 
 #import <ImportClass.h>

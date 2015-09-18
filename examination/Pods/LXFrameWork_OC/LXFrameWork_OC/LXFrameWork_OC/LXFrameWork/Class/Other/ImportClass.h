@@ -29,18 +29,22 @@
 #import "NSString+RegularExpression.h"
 
 #import "BasePullTableViewController.h"
+#import "BaseCellTableViewController.h"
 #import "BaseStepViewController.h"
 #import "QRCodeViewController.h"
 #import "PlistTool.h"
 #import "PathTool.h"
 #import "BundleTool.h"
 #import "BaseNetworkTool.h"
+#import "CoreLocationTool.h"
+#import "SystemDeviceTool.h"
+#import "CHKeychainTool.h"
+#import "UserDefaultsTool.h"
 #import "BlockButton.h"
 #import "TimeButton.h"
 #import "AppDelegate.h"
 #import "LXSingleton.h"
 #import "LXFrameWorkConst.h"
-#import "CoreLocationTool.h"
 #import "UserAddressModel.h"
 
 #import <FMDB.h>
@@ -59,22 +63,22 @@
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 // 屏幕宽高
-#define kWindowWidth [UIScreen mainScreen].bounds.size.width
-#define kWindowHeight [UIScreen mainScreen].bounds.size.height
-#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
-#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define kWindowWidth      [UIScreen mainScreen].bounds.size.width
+#define kWindowHeight     [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTH      ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT     ([[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 #define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
 
-#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPAD   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
 
-#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
-#define IS_IPHONE_5_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH <=568.0)
-#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
-#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
-#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH <  568.0)
+#define IS_IPHONE_5_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH <= 568.0)
+#define IS_IPHONE_5_OR_5S   (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6_OR_6S   (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P_OR_6PS (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
 
 #define kLINE_1_PX (1.0f / [UIScreen mainScreen].scale)
 #define MainDelegate  ((AppDelegate *)[UIApplication sharedApplication].delegate)
@@ -87,7 +91,7 @@
 
 #define kRGBColor(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
 
-#define kSystemBlue  kRGBColor(71, 167, 216, 1)
+#define kSystemColor  kRGBColor(71, 167, 216, 1)
 
 // 打印frame
 #define kFrameLog(f) NSLog(@"%@",NSStringFromCGRect(f));

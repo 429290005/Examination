@@ -83,10 +83,11 @@
 
 - (UILabel *)setNavTitle:(NSString *)title
 {
+    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
     UILabel *centerTitle = [UILabel newAutoLayoutView];
     centerTitle.textAlignment = NSTextAlignmentCenter;
     centerTitle.font = BaseNavBarTextFont;
-    centerTitle.textColor = [UIColor blackColor];
+    centerTitle.textColor = instance.NavigationBar_textColor;
     centerTitle.text = title;
     [self setCenterView:^UIView *{
         return centerTitle;
@@ -96,8 +97,8 @@
 
 - (UIButton *)setLeftBtnWithImage:(UIImage *)image orTitle:(NSString *)title ClickOption:(ClickButton)clickOption
 {
+    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
     BlockButton *button = [BlockButton newAutoLayoutView];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.font = BaseNavBarTextFont;
     [self setLeftView:^UIView *{
         if (image) {
@@ -105,6 +106,7 @@
         }
         if (title.length) {
             [button setTitle:title forState:UIControlStateNormal];
+            [button setTitleColor:instance.NavigationBar_textColor forState:UIControlStateNormal];
         }
         button.ClickOption = clickOption;
         return button;
@@ -114,8 +116,8 @@
 
 - (UIButton *)setRightBtnWithImage:(UIImage *)image orTitle:(NSString *)title ClickOption:(ClickButton) clickOption
 {
+    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
     BlockButton *button = [[BlockButton alloc] init];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     button.titleLabel.font = BaseNavBarTextFont;
     [self setRightView:^UIView *{
         if (image) {
@@ -123,6 +125,7 @@
         }
         if (title.length) {
             [button setTitle:title forState:UIControlStateNormal];
+            [button setTitleColor:instance.NavigationBar_textColor forState:UIControlStateNormal];
         }
         button.ClickOption = clickOption;
         return button;

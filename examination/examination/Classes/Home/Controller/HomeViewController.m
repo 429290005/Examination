@@ -10,6 +10,7 @@
 #import "UserLoginViewController.h"
 #import "HomeCollectionViewCell.h"
 #import "ExamTableViewController.h"
+#import "UserMenuViewController.h"
 #import "CourseModel.h"
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -26,12 +27,18 @@
     [self setNavTitle:@"首页"];
     
     [self getUserCourse];
+    
+    __weak typeof (self) nav = self;
+    [self setRightBtnWithImage:[UIImage imageNamed:@"main_menu_btn"] orTitle:nil ClickOption:^{
+        UserMenuViewController *menu = [[UserMenuViewController alloc] init];
+        [nav.navigationController pushViewController:menu animated:YES];
+    }];
 }
 
 - (void) getUserCourse
 {
     Instance *instance = [Instance sharedInstance];
-    [SkywareHttpTool HttpToolGetWithUrl:course paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
+    [SkywareHttpTool HttpToolGetWithUrl:userCourse paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
         NSArray *courseArray = [CourseModel objectArrayWithKeyValuesArray:result.result];
         [self.dataList addObjectsFromArray:courseArray];
@@ -55,7 +62,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionViewID" forIndexPath:indexPath];
-    //    CourseModel *model = self.dataList[indexPath.row];
     cell.model = self.dataList[indexPath.row];
     return cell;
 }
@@ -75,6 +81,8 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ExamTableViewController *examVC = [[ExamTableViewController alloc] init];
+    CourseModel *model = self.dataList[indexPath.row];
+    examVC.exam_id = model.exam_id;
     [self.navigationController pushViewController:examVC animated:YES];
 }
 

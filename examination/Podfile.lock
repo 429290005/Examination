@@ -25,8 +25,8 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - IQKeyboardManager (3.3.0)
-  - LXFrameWork_OC (2.4.9):
+  - IQKeyboardManager (3.3.1)
+  - LXFrameWork_OC (2.5.1):
     - AFNetworking
     - FMDB
     - IQKeyboardManager
@@ -38,8 +38,8 @@ PODS:
     - SSZipArchive
     - SVProgressHUD
     - ZipArchive
-  - MJExtension (2.5.9)
-  - MJRefresh (2.4.7)
+  - MJExtension (2.5.10)
+  - MJRefresh (2.4.10)
   - PureLayout (3.0.1)
   - Reachability (3.2)
   - SDWebImage (3.7.3):
@@ -55,10 +55,10 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  IQKeyboardManager: c87b6600cbfca89d1fe6e8052d936e6c20f65375
-  LXFrameWork_OC: af8b43aac055b716dd74697cdeb0c3c686852dfc
-  MJExtension: 2330aeb6c83428c820749290bf766e81827cda65
-  MJRefresh: 6eb2f61338f89f64fd628fd43debcf479381ff59
+  IQKeyboardManager: 860a5b9df32cc1435a3e967a08ed87de3e59c12e
+  LXFrameWork_OC: ba6ced20017dbea6f0f27c26df573397943f8023
+  MJExtension: 944fb5a12bceb9b866914527f66101566e66292b
+  MJRefresh: e52328552ed9cbfce3501e3820b18bf7643c65cc
   PureLayout: f35f5384c9c4e4479df041dbe33ad7577b71ddfb
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
@@ -66,4 +66,4 @@ SPEC CHECKSUMS:
   SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
   ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
 
-COCOAPODS: 0.39.0.beta.3
+COCOAPODS: 0.39.0.beta.4

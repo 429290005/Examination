@@ -10,13 +10,18 @@
 
 #define BUNDLE_PATH(name) [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: (name)]
 #define MYBUNDLE [NSBundle bundleWithPath: MYBUNDLE_PATH]
+#define SYSTEM_VERSION_LESS_THAN(v)([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 
 @implementation BundleTool
 
 
 + (UIImage *)getImage:(NSString *)img FromBundle:(NSString *)bundle
 {
-    UIImage *image=[UIImage imageWithContentsOfFile:[BUNDLE_PATH(bundle) stringByAppendingPathComponent : img]];
+    NSMutableString *imgName = [NSMutableString stringWithString:img];
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0")) {
+        [imgName appendString:@".png"];
+    }
+    UIImage *image=[UIImage imageWithContentsOfFile:[BUNDLE_PATH(bundle) stringByAppendingPathComponent : imgName]];
     return image;
 }
 

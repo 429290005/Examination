@@ -11,7 +11,7 @@
 
 #define ratio 0.7
 
-@interface BaseNavigationController ()
+@interface BaseNavigationController ()<UIGestureRecognizerDelegate>
 {
     UIPanGestureRecognizer *_PanRecognizer;
 }
@@ -30,6 +30,7 @@
     [super viewDidLoad];
     // 拖拽手势
     _PanRecognizer= [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragging:)];
+    _PanRecognizer.delegate = self;
     [self.view addGestureRecognizer:_PanRecognizer];
 }
 
@@ -66,6 +67,14 @@
     return [super popViewControllerAnimated:animated];
 }
 
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
+}
+
 #pragma mark - 手势拖拽切换控制器方法
 
 /**
@@ -75,7 +84,6 @@
 {
     // 如果只有1个子控制器,停止拖拽
     if (self.viewControllers.count <= 1) return;
-    
     // 在x方向上移动的距离
     CGFloat tx = [recognizer translationInView:self.view].x;
     if (tx < 0){

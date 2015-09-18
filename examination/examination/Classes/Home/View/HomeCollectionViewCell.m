@@ -25,9 +25,9 @@
     if ([model.exam_status isEqualToString:@"1"]) {
         self.backgroundColor= kExam_Status_UnripeBackageColor;
     }else if ([model.exam_status isEqualToString:@"2"]){
-        self.backgroundColor= kExam_Status_UnripeBackageColor;
+        self.backgroundColor= kExam_Status_SuccessBackageColor;
     }else if ([model.exam_status isEqualToString:@"3"]){
-        self.backgroundColor= kExam_Status_UnripeBackageColor;
+        self.backgroundColor= kExam_Status_LockBackageColor;
     }
     self.course_name.text = model.course_name;
     self.exam_term.text = [NSString stringWithFormat:@"%@期",model.exam_term];

@@ -10,4 +10,9 @@
 
 @interface ExamTableViewController : BaseTableViewController
 
+/**
+ *  考卷id
+ */
+@property (nonatomic,copy) NSString *exam_id;
+
 @end

@@ -31,6 +31,15 @@ LXSingletonM(LXFrameWorkInstance);
     }
 }
 
+- (UIColor *)NavigationBar_textColor
+{
+    if (_NavigationBar_textColor == nil) {
+        return [UIColor blackColor];
+    }else{
+        return _NavigationBar_textColor;
+    }
+}
+
 
 
 @end

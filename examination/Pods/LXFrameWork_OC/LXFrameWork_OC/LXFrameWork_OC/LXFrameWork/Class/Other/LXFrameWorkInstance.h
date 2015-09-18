@@ -27,6 +27,10 @@ LXSingletonH(LXFrameWorkInstance);
  */
 @property (nonatomic,assign) navBarBackColor backState;
 /**
+ * 设置NavigationBar 字体颜色
+ */
+@property (nonatomic,assign) UIColor *NavigationBar_textColor;
+/**
  *  是否开启请求日志记录
  */
 @property (nonatomic,assign) BOOL openHttpDebug;

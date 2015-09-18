@@ -21,19 +21,23 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
-        UserLoginViewController *user = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
-        self.window.rootViewController = user;
-        self.navigationController = (UINavigationController *)user;
+        UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
+        self.window.rootViewController = userVC;
+        self.navigationController = (UINavigationController *)userVC;
     }else{
         AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
         self.window.rootViewController = authVC;
         self.navigationController = (UINavigationController *)authVC;
     }
     [self.window makeKeyAndVisible];
+    
+    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
+    instance.NavigationBar_bgColor = kRGBColor(84, 176, 220, 1);
+    instance.NavigationBar_textColor = [UIColor whiteColor];
+    instance.backState = writeBase;
     
     
     // 存储UUID 保证唯一性

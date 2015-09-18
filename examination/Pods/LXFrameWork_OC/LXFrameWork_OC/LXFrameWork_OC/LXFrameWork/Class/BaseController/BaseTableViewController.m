@@ -45,129 +45,21 @@
     self.tableView.dataSource = nil;
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource,UITableViewDelegate
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
     return self.dataList.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BaseCellItemGroup *group = self.dataList[section];
-    return group.item.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BaseCellItemGroup *group = self.dataList[indexPath.section];
-    BaseCellItem *item = group.item[indexPath.row];
-    
-    BaseTableViewCell *cell = nil;
-    if ([item isKindOfClass:[BaseArrowCellItem class]]) {
-        cell = [BaseTableViewCell createProfileBaseCellWithTableView:tableView andCellStyle:UITableViewCellStyleValue1];
-    }else if([item isKindOfClass:[BaseSubtitleCellItem class]]){
-        cell = [BaseTableViewCell createProfileBaseCellWithTableView:tableView andCellStyle:UITableViewCellStyleSubtitle];
-    }else{
-        cell = [BaseTableViewCell createProfileBaseCellWithTableView:tableView andCellStyle:UITableViewCellStyleDefault];
+    NSString *cellID = @"BaseTableViewCellID";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    cell.items = item;
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // 手动取消选中某一行
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    BaseCellItemGroup *group = self.dataList[indexPath.section];
-    BaseCellItem *item = group.item[indexPath.row];
-    
-    // 如果有block 就执行block 中的操作
-    if (item.option) {
-        item.option();
-        return;
-    }
-    // 判断是否为箭头样式的cell 操作就是跳转控制器的操作
-    if ([item isKindOfClass:[BaseArrowCellItem class]]) {
-        BaseArrowCellItem *arrowItem = (BaseArrowCellItem *)item;
-        if (arrowItem.detailClass) {
-            UIViewController *VC = [[arrowItem.detailClass alloc] init];
-            if ([VC isKindOfClass:[BaseViewController class]]) {
-                BaseViewController *baseViewController = (BaseViewController *)VC;
-                [baseViewController setTitle:item.title];
-            }
-            [self.navigationController pushViewController:VC animated:YES];
-        }
-    }
-    
-    //    else if ([item isKindOfClass:[BaseSwitchCellItem class]]){
-    //        BaseSwitchCellItem *switchCell = (BaseSwitchCellItem *) item;
-    //        if (switchCell.switchOption) {
-    //            switchCell.switchOption();
-    //        }
-    //    }
-    
-}
-
-- (NSString *) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    BaseCellItemGroup *group = self.dataList[section];
-    return group.headTitle;
-}
-
-- (NSString *) tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
-{
-    BaseCellItemGroup *group = self.dataList[section];
-    return group.footerTitle;
-}
-
-- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    BaseCellItemGroup *group = self.dataList[section];
-    return group.headView;
-}
-
-- (UIView *) tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    BaseCellItemGroup *group = self.dataList[section];
-    return group.footerView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (!self.dataList.count) return 0;
-    if (![self.dataList[section] isKindOfClass:[BaseCellItemGroup class]]) return 0;
-    BaseCellItemGroup *group = self.dataList[section];
-    if (group.headView) {
-        return group.headView.height;
-    }else if(group.headTitle.length){
-        return 23;
-    }
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if (!self.dataList.count) return 0;
-    if (![self.dataList[section] isKindOfClass:[BaseCellItemGroup class]]) return 0;
-    BaseCellItemGroup *group = self.dataList[section];
-    if (group.footerView) {
-        return group.footerView.height;
-    }else if(group.footerTitle.length){
-        return 23;
-    }
-    return 0;
-}
-
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    BaseCellItemGroup *group = self.dataList[indexPath.section];
-    BaseCellItem *item = group.item[indexPath.row];
-    if ([item isKindOfClass:[BaseIconItem class]]) {
-        return 70;
-    }
-    return 44;
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -179,7 +71,7 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    // 如果有下拉图片就方法该图片
+    // 如果有下拉图片就放大该图片
     if (self.scaleImage) {
         CGFloat down = -(_scaleHeight) - scrollView.contentOffset.y;
         if (down > 0){

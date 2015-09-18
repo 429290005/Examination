@@ -6,10 +6,10 @@
 //  Copyright (c) 2015年 LXFrameWork. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import "BaseCellTableViewController.h"
 /**
  *  系统调试选项
  */
-@interface SystemDebugController : BaseTableViewController
+@interface SystemDebugController : BaseCellTableViewController
 
 @end

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 LXFrameWork. All rights reserved.
 //
 
-#import "BasePullTableViewController.h"
+#import "BaseCellTableViewController.h"
 
-@interface SysetmHttpDebugController : BasePullTableViewController
+@interface SysetmHttpDebugController : BaseCellTableViewController
 
 @end
