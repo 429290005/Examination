@@ -25,7 +25,6 @@
 		4EC8089F1BA71EA100EE8243 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EC8089E1BA71EA100EE8243 /* Home.storyboard */; };
 		4EC808A21BA7A89A00EE8243 /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808A11BA7A89A00EE8243 /* UserLoginViewController.m */; };
 		4EC808A41BA7ACEE00EE8243 /* User.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4EC808A31BA7ACEE00EE8243 /* User.storyboard */; };
-		4EC808A91BA7C3B000EE8243 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EC808A81BA7C3B000EE8243 /* Security.framework */; };
 		4EC808B21BA7EC5500EE8243 /* Instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808B11BA7EC5500EE8243 /* Instance.m */; };
 		4EC808B51BA7F1BB00EE8243 /* CourseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808B41BA7F1BB00EE8243 /* CourseModel.m */; };
 		4EC808B81BA7F42800EE8243 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808B71BA7F42800EE8243 /* HomeCollectionViewCell.m */; };
@@ -120,7 +119,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4EC808A91BA7C3B000EE8243 /* Security.framework in Frameworks */,
 				CEACB311CEDBEFEA4016E5AD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -586,6 +584,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -608,6 +607,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -629,6 +629,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -644,6 +645,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -654,11 +656,15 @@
 			baseConfigurationReference = 3F4180805243F215C66CF6DE /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/examination/Classes/Main/Other/PCH.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/examination/Classes/Main/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -667,11 +673,15 @@
 			baseConfigurationReference = D289F5CFFCF99270183FCD9A /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/examination/Classes/Main/Other/PCH.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/examination/Classes/Main/Other/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

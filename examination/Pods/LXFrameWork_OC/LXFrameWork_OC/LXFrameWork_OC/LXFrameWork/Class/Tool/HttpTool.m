@@ -150,6 +150,7 @@
                 success(responseObject);
             }
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"operation: %@", operation.responseString);
             if (failure) {
                 failure(error);
             }

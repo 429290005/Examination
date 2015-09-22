@@ -27,6 +27,11 @@
         [CHKeychainTool save:KEY_DEVICE_UUID data:[SystemDeviceTool getUUID]];
     }
     
+    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
+    instance.NavigationBar_bgColor = kRGBColor(84, 176, 220, 1);
+    instance.NavigationBar_textColor = [UIColor whiteColor];
+    instance.backState = writeBase;
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
@@ -62,11 +67,7 @@
         self.navigationController = (UINavigationController *)authVC;
     }
     [self.window makeKeyAndVisible];
-    
-    LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
-    instance.NavigationBar_bgColor = kRGBColor(84, 176, 220, 1);
-    instance.NavigationBar_textColor = [UIColor whiteColor];
-    instance.backState = writeBase;
+
     
     UIApplication *app = [UIApplication sharedApplication];
     [app setStatusBarHidden:NO];

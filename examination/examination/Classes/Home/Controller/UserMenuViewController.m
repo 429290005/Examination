@@ -27,10 +27,10 @@
         [self.navigationController pushViewController:userInfo animated:YES];
     }];
     
-//    BaseArrowCellItem *aboutWe = [BaseArrowCellItem  createBaseCellItemWithIcon:nil AndTitle:@"关于我们" SubTitle:nil ClickOption:^{
-//        AboutViewController *about = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
-//        [self.navigationController pushViewController:about animated:YES];
-//    }];
+    //    BaseArrowCellItem *aboutWe = [BaseArrowCellItem  createBaseCellItemWithIcon:nil AndTitle:@"关于我们" SubTitle:nil ClickOption:^{
+    //        AboutViewController *about = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
+    //        [self.navigationController pushViewController:about animated:YES];
+    //    }];
     
     BaseCenterTitleCellItem *centerItem = [BaseCenterTitleCellItem createBaseCellItemWithCenterTitle:@"退出登录" ClickOption:^{
         Instance *instance = [Instance sharedInstance];
@@ -42,8 +42,9 @@
                 //                UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
                 AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
                 [UIWindow changeWindowRootViewController:authVC animated:YES];
+            }else{
+                [SVProgressHUD showErrorWithStatus:@"退出失败，请稍后重试"];
             }
-            [SVProgressHUD dismiss];
         } failure:^(NSError *error) {
             
             

@@ -53,8 +53,7 @@
             [SVProgressHUD showErrorWithStatus:@"授权码有误,请重新输入"];
         }
     } failure:^(NSError *error) {
-        [SVProgressHUD dismiss];
-        NSLog(@"%@",error);
+        [SVProgressHUD showErrorWithStatus:@"授权错误，请联系管理员"];
     }];
 }
 
