@@ -25,7 +25,7 @@
 #define RTServersURL @"http://api.kdt.webbig.cn/api"
 
 #define kExam_Status_UnripeBackageColor kRGBColor(254, 216, 51, 1)
-#define kExam_Status_SuccessBackageColor kRGBColor(127, 230, 72, 1)
+#define kExam_Status_SuccessBackageColor kRGBColor(96, 197, 91, 1)
 #define kExam_Status_LockBackageColor kRGBColor(234, 76, 70, 1)
 
 

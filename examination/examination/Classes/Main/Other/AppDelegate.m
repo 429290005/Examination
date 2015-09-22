@@ -21,12 +21,41 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // 存储UUID 保证唯一性
+    if(![CHKeychainTool load:KEY_DEVICE_UUID]){
+        [CHKeychainTool save:KEY_DEVICE_UUID data:[SystemDeviceTool getUUID]];
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
-        UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
-        self.window.rootViewController = userVC;
-        self.navigationController = (UINavigationController *)userVC;
+        //        UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
+        //        self.window.rootViewController = userVC;
+        //        self.navigationController = (UINavigationController *)userVC;
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        NSString *UUID = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_DEVICE_UUID]];
+        NSString *Code = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_APP_AUCH_CODE]];
+        [params setObject:Code forKey:@"auth_code"];
+        [params setObject:UUID forKey:@"device"];
+        [SVProgressHUD showWithStatus:@"正在登录"];
+        [SkywareHttpTool HttpToolPostWithUrl:login paramesers:params requestHeaderField:nil SuccessJson:^(id json) {
+            SkywareResult *result = [SkywareResult objectWithKeyValues:json];
+            if ([result.message isEqualToString:@"200"]) {
+                Instance *instance = [Instance sharedInstance];
+                instance.token = result.token;
+                HomeViewController *home = [[UIStoryboard storyboardWithName:@"Home" bundle:nil]instantiateInitialViewController];
+                self.window.rootViewController = home;
+                self.navigationController = (UINavigationController *)home;
+            }else{
+                AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+                self.window.rootViewController = authVC;
+                self.navigationController = (UINavigationController *)authVC;
+            }
+            [SVProgressHUD dismiss];
+        } failure:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
     }else{
         AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
         self.window.rootViewController = authVC;
@@ -39,11 +68,9 @@
     instance.NavigationBar_textColor = [UIColor whiteColor];
     instance.backState = writeBase;
     
-    
-    // 存储UUID 保证唯一性
-    if(![CHKeychainTool load:KEY_DEVICE_UUID]){
-        [CHKeychainTool save:KEY_DEVICE_UUID data:[SystemDeviceTool getUUID]];
-    }
+    UIApplication *app = [UIApplication sharedApplication];
+    [app setStatusBarHidden:NO];
+    [app setStatusBarStyle:UIStatusBarStyleLightContent];
     
     return YES;
 }

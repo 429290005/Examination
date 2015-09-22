@@ -27,10 +27,10 @@
         [self.navigationController pushViewController:userInfo animated:YES];
     }];
     
-    BaseArrowCellItem *aboutWe = [BaseArrowCellItem  createBaseCellItemWithIcon:nil AndTitle:@"关于我们" SubTitle:nil ClickOption:^{
-        AboutViewController *about = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
-        [self.navigationController pushViewController:about animated:YES];
-    }];
+//    BaseArrowCellItem *aboutWe = [BaseArrowCellItem  createBaseCellItemWithIcon:nil AndTitle:@"关于我们" SubTitle:nil ClickOption:^{
+//        AboutViewController *about = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"AboutViewController"];
+//        [self.navigationController pushViewController:about animated:YES];
+//    }];
     
     BaseCenterTitleCellItem *centerItem = [BaseCenterTitleCellItem createBaseCellItemWithCenterTitle:@"退出登录" ClickOption:^{
         Instance *instance = [Instance sharedInstance];
@@ -51,7 +51,7 @@
         
     } WithColor:[UIColor redColor]];
     
-    BaseCellItemGroup *group1 = [BaseCellItemGroup createGroupWithItem:@[userItem,aboutWe,centerItem]];
+    BaseCellItemGroup *group1 = [BaseCellItemGroup createGroupWithItem:@[userItem,centerItem]];
     
     [self.dataList addObject:group1];
 }

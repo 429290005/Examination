@@ -18,6 +18,12 @@
 
 @implementation HomeCollectionViewCell
 
+- (void)awakeFromNib
+{
+    self.layer.cornerRadius = 8;
+    self.clipsToBounds = YES;
+}
+
 
 - (void)setModel:(CourseModel *)model
 {

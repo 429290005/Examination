@@ -37,14 +37,16 @@
 
 - (void) getUserCourse
 {
+    [SVProgressHUD show];
     Instance *instance = [Instance sharedInstance];
     [SkywareHttpTool HttpToolGetWithUrl:userCourse paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
         NSArray *courseArray = [CourseModel objectArrayWithKeyValuesArray:result.result];
         [self.dataList addObjectsFromArray:courseArray];
         [self.collectionView reloadData];
+        [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD dismiss];
     }];
 }
 
@@ -69,7 +71,7 @@
 - (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat cellWH = (kWindowWidth - 3 * 15) * 0.5;
-    return CGSizeMake(cellWH, cellWH);
+    return CGSizeMake(cellWH, cellWH * 0.7);
 }
 
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
