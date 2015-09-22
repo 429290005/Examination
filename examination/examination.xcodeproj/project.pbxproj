@@ -378,7 +378,6 @@
 				4E4AEF8F1B9DE411005D6D97 /* Sources */,
 				4E4AEF901B9DE411005D6D97 /* Frameworks */,
 				4E4AEF911B9DE411005D6D97 /* Resources */,
-				980ACE841517828A3FD73BB8 /* Embed Pods Frameworks */,
 				459D14064E17E7FA1F95B1A8 /* Copy Pods Resources */,
 			);
 			buildRules = (
@@ -499,21 +498,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		980ACE841517828A3FD73BB8 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -700,6 +684,7 @@
 				INFOPLIST_FILE = examinationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/examination.app/examination";
 			};
 			name = Debug;
@@ -715,6 +700,7 @@
 				INFOPLIST_FILE = examinationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/examination.app/examination";
 			};
 			name = Release;
