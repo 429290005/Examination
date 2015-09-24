@@ -33,6 +33,10 @@
         UserMenuViewController *menu = [[UserMenuViewController alloc] init];
         [nav.navigationController pushViewController:menu animated:YES];
     }];
+    
+    [self setLeftBtnWithImage:[UIImage imageNamed:@"popover_icon_refresh"] orTitle:nil ClickOption:^{
+        [nav getUserCourse];
+    }];
 }
 
 - (void) getUserCourse
@@ -42,6 +46,9 @@
     [SkywareHttpTool HttpToolGetWithUrl:userCourse paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
         NSArray *courseArray = [CourseModel objectArrayWithKeyValuesArray:result.result];
+        if (courseArray.count) {
+            [self.dataList removeAllObjects];
+        }
         [self.dataList addObjectsFromArray:courseArray];
         [self.collectionView reloadData];
         [SVProgressHUD dismiss];
@@ -89,11 +96,21 @@
 }
 
 //返回这个UICollectionView是否可以被选择
+/**
+ *  1. 考卷尚未准备好：等待
+ *  2. 考卷已经准备好：正常
+ *  3. 考卷已经锁定：锁定
+ */
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeCollectionViewCell * cell = (HomeCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     NSInteger status = [cell.model.exam_status integerValue];
-    if (status == 1 || status == 3) {
+    
+    if (status == 1) {
+        [SVProgressHUD showInfoWithStatus:@"考卷尚未准备好"];
+        return NO;
+    }else if(status == 3){
+        [SVProgressHUD showInfoWithStatus:@"考卷已经锁定"];
         return NO;
     }
     return YES;

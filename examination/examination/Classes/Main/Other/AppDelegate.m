@@ -27,6 +27,8 @@
         [CHKeychainTool save:KEY_DEVICE_UUID data:[SystemDeviceTool getUUID]];
     }
     
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    
     LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
     instance.NavigationBar_bgColor = kRGBColor(84, 176, 220, 1);
     instance.NavigationBar_textColor = [UIColor whiteColor];

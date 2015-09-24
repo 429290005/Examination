@@ -43,8 +43,12 @@
         _examM = [ExamModel objectWithKeyValues:result.result];
         _headView.examModel = _examM;
         _catalogModel = _examM.catalog;
-        [self.tableView reloadData];
-        [SVProgressHUD dismiss];
+        if (!_catalogModel.count) {
+            [SVProgressHUD showInfoWithStatus:@"暂无试卷"];
+        }else{
+            [self.tableView reloadData];
+            [SVProgressHUD dismiss];
+        }
     } failure:^(NSError *error) {
         
     }];

@@ -12,7 +12,7 @@
 #import "UserLoginViewController.h"
 #import "AuthViewController.h"
 
-@interface UserMenuViewController ()
+@interface UserMenuViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -32,7 +32,21 @@
     //        [self.navigationController pushViewController:about animated:YES];
     //    }];
     
-    BaseCenterTitleCellItem *centerItem = [BaseCenterTitleCellItem createBaseCellItemWithCenterTitle:@"退出登录" ClickOption:^{
+    BaseCenterTitleCellItem *centerItem = [BaseCenterTitleCellItem createBaseCellItemWithCenterTitle:@"解除绑定" ClickOption:^{
+        
+        [[[UIAlertView alloc] initWithTitle:@"提示" message:@"您确定要解除绑定" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil]show];
+        
+        
+    } WithColor:[UIColor redColor]];
+    
+    BaseCellItemGroup *group1 = [BaseCellItemGroup createGroupWithItem:@[userItem,centerItem]];
+    
+    [self.dataList addObject:group1];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
         Instance *instance = [Instance sharedInstance];
         [SVProgressHUD show];
         [SkywareHttpTool HttpToolDeleteWithUrl:authcode paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
@@ -50,11 +64,7 @@
             
         }];
         
-    } WithColor:[UIColor redColor]];
-    
-    BaseCellItemGroup *group1 = [BaseCellItemGroup createGroupWithItem:@[userItem,centerItem]];
-    
-    [self.dataList addObject:group1];
+    }
 }
 
 
