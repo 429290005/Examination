@@ -28,54 +28,85 @@
     }
     
     [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD setBackgroundColor: kRGBColor(238, 238, 238, 1)];
     
     LXFrameWorkInstance *instance = [LXFrameWorkInstance sharedLXFrameWorkInstance];
     instance.NavigationBar_bgColor = kRGBColor(84, 176, 220, 1);
     instance.NavigationBar_textColor = [UIColor whiteColor];
     instance.backState = writeBase;
     
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
-        //        UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
-        //        self.window.rootViewController = userVC;
-        //        self.navigationController = (UINavigationController *)userVC;
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        NSString *UUID = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_DEVICE_UUID]];
-        NSString *Code = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_APP_AUCH_CODE]];
-        [params setObject:Code forKey:@"auth_code"];
-        [params setObject:UUID forKey:@"device"];
-        [SVProgressHUD showWithStatus:@"正在登录"];
-        [SkywareHttpTool HttpToolPostWithUrl:login paramesers:params requestHeaderField:nil SuccessJson:^(id json) {
-            SkywareResult *result = [SkywareResult objectWithKeyValues:json];
-            if ([result.message isEqualToString:@"200"]) {
-                Instance *instance = [Instance sharedInstance];
-                instance.token = result.token;
-                HomeViewController *home = [[UIStoryboard storyboardWithName:@"Home" bundle:nil]instantiateInitialViewController];
-                self.window.rootViewController = home;
-                self.navigationController = (UINavigationController *)home;
-            }else{
-                AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-                self.window.rootViewController = authVC;
-                self.navigationController = (UINavigationController *)authVC;
-            }
-            [SVProgressHUD dismiss];
-        } failure:^(NSError *error) {
-            NSLog(@"%@",error);
-        }];
-    }else{
-        AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-        self.window.rootViewController = authVC;
-        self.navigationController = (UINavigationController *)authVC;
-    }
-    [self.window makeKeyAndVisible];
-
-    
     UIApplication *app = [UIApplication sharedApplication];
     [app setStatusBarHidden:NO];
     [app setStatusBarStyle:UIStatusBarStyleLightContent];
     
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    [self applicationShowAuth];
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
+}
+
+- (void) applicationShowAuth
+{
+    [SkywareHttpTool HttpToolGetWithUrl:showStatus paramesers:nil requestHeaderField:nil SuccessJson:^(id json) {
+        SkywareResult *result = [SkywareResult objectWithKeyValues:json];
+        if ([result.message isEqualToString:@"200"]) {
+            NSDictionary *dict = result.result;
+            BOOL flag = [dict[@"status"] boolValue];
+            Instance *instance = [Instance sharedInstance];
+            if (flag) {
+                instance.isAssessor = YES;
+                NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                [params setObject:kTestAuth forKey:@"auth_code"];
+                [params setObject:kTestUDID forKey:@"device"];
+                [self applicationLoginWithParmas:params];
+            }else{
+                instance.isAssessor = NO;
+                if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
+                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+                    NSString *UUID = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_DEVICE_UUID]];
+                    NSString *Code = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_APP_AUCH_CODE]];
+                    [params setObject:Code forKey:@"auth_code"];
+                    [params setObject:UUID forKey:@"device"];
+                    [self applicationLoginWithParmas:params];
+                }else{
+                    AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+                    self.window.rootViewController = authVC;
+                    self.navigationController = (UINavigationController *)authVC;
+                }
+            }
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+        AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+        self.window.rootViewController = authVC;
+        self.navigationController = (UINavigationController *)authVC;
+    }];
+}
+
+- (void) applicationLoginWithParmas:(NSDictionary *) params
+{
+    [SVProgressHUD showWithStatus:@"正在登录"];
+    [SkywareHttpTool HttpToolPostWithUrl:login paramesers:params requestHeaderField:nil SuccessJson:^(id json) {
+        SkywareResult *result = [SkywareResult objectWithKeyValues:json];
+        if ([result.message isEqualToString:@"200"]) {
+            Instance *instance = [Instance sharedInstance];
+            instance.token = result.token;
+            HomeViewController *home = [[UIStoryboard storyboardWithName:@"Home" bundle:nil]instantiateInitialViewController];
+            self.window.rootViewController = home;
+            self.navigationController = (UINavigationController *)home;
+        }else{
+            AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+            self.window.rootViewController = authVC;
+            self.navigationController = (UINavigationController *)authVC;
+        }
+        [SVProgressHUD dismiss];
+    } failure:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

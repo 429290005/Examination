@@ -15,4 +15,7 @@ LXSingletonH(Instance)
 /*** 用户token */
 @property (nonatomic,copy) NSString *token;
 
+/*** 是否审核过程 */
+@property (nonatomic,assign) BOOL isAssessor;
+
 @end

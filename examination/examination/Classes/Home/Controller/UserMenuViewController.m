@@ -48,22 +48,26 @@
 {
     if (buttonIndex == 1) {
         Instance *instance = [Instance sharedInstance];
-        [SVProgressHUD show];
-        [SkywareHttpTool HttpToolDeleteWithUrl:authcode paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
-            SkywareResult *result = [SkywareResult objectWithKeyValues:json];
-            if ([result.message isEqualToString:@"200"]) {
-                [CHKeychainTool delete:KEY_APP_AUCH_CODE];
-                //                UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
-                AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-                [UIWindow changeWindowRootViewController:authVC animated:YES];
-            }else{
-                [SVProgressHUD showErrorWithStatus:@"退出失败，请稍后重试"];
-            }
-        } failure:^(NSError *error) {
-            
-            
-        }];
-        
+        if (instance.isAssessor) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [SVProgressHUD showSuccessWithStatus:@"取消绑定成功"];
+        }else{
+            [SVProgressHUD show];
+            [SkywareHttpTool HttpToolDeleteWithUrl:authcode paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
+                SkywareResult *result = [SkywareResult objectWithKeyValues:json];
+                if ([result.message isEqualToString:@"200"]) {
+                    [CHKeychainTool delete:KEY_APP_AUCH_CODE];
+                    //                UserLoginViewController *userVC = (UserLoginViewController *) [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@"UserLoginViewController"];
+                    AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+                    [UIWindow changeWindowRootViewController:authVC animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:@"退出失败，请稍后重试"];
+                }
+            } failure:^(NSError *error) {
+                
+                
+            }];
+        }
     }
 }
 

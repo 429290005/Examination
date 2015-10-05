@@ -50,14 +50,17 @@
                                             <rect key="frame" x="0.0" y="0.0" width="151" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学期" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oW1-Lw-wLh">
-                                                    <rect key="frame" x="60" y="69" width="32" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="学期" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oW1-Lw-wLh">
+                                                    <rect key="frame" x="60" y="79.5" width="32" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="考试名称" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Pi-3x-cwh">
-                                                    <rect key="frame" x="44" y="45" width="64" height="20"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="考试名称" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Pi-3x-cwh">
+                                                    <rect key="frame" x="5" y="35" width="141" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="SMR-Go-JX5"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -66,10 +69,12 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
+                                            <constraint firstItem="9Pi-3x-cwh" firstAttribute="leading" secondItem="EU1-No-JBW" secondAttribute="leading" constant="5" id="3XN-Eg-3oV"/>
                                             <constraint firstAttribute="centerX" secondItem="oW1-Lw-wLh" secondAttribute="centerX" id="9vV-bY-3wr"/>
                                             <constraint firstItem="oW1-Lw-wLh" firstAttribute="top" secondItem="9Pi-3x-cwh" secondAttribute="bottom" constant="4" id="Qx3-TH-ItR"/>
                                             <constraint firstAttribute="centerX" secondItem="9Pi-3x-cwh" secondAttribute="centerX" id="Vrv-lx-bSD"/>
                                             <constraint firstAttribute="centerY" secondItem="9Pi-3x-cwh" secondAttribute="centerY" constant="10" id="qc4-74-a9O"/>
+                                            <constraint firstAttribute="trailing" secondItem="9Pi-3x-cwh" secondAttribute="trailing" constant="5" id="tTh-WT-OJe"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="course_name" destination="9Pi-3x-cwh" id="YEo-m2-lwN"/>
@@ -179,7 +184,7 @@
                                     <constraint firstAttribute="height" constant="2" id="BdP-ly-ORh"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E18-x8-OW4">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E18-x8-OW4">
                                 <rect key="frame" x="58" y="120" width="41" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <inset key="imageEdgeInsets" minX="-2" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -191,7 +196,7 @@
                                     <action selector="goExamBtnClick:" destination="hoN-zS-4mN" eventType="touchUpInside" id="2dS-tl-BHQ"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B79-1E-nWO">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B79-1E-nWO">
                                 <rect key="frame" x="107" y="120" width="69" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <inset key="imageEdgeInsets" minX="-3" minY="0.0" maxX="0.0" maxY="0.0"/>

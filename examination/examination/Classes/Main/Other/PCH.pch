@@ -24,12 +24,19 @@
 /** 服务器域名  */
 #define RTServersURL @"http://api.kdt.webbig.cn/api"
 
+/** 使用测试的UDID  */
+#define kTestUDID @"4d27e0c9-8982-458e-a677-a2cd1b0feb5a"
+
+/** 使用测试的Auth  */
+#define kTestAuth @"4201509254012F90CEEA8"
+
 #define kExam_Status_UnripeBackageColor kRGBColor(254, 216, 51, 1)
 #define kExam_Status_SuccessBackageColor kRGBColor(96, 197, 91, 1)
 #define kExam_Status_LockBackageColor kRGBColor(234, 76, 70, 1)
 
 
-
+// 是否显示授权码
+#define showStatus @"status"
 // 授权绑定
 #define authcode @"bind"
 // 登录
