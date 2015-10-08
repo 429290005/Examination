@@ -35,14 +35,12 @@
     instance.NavigationBar_textColor = [UIColor whiteColor];
     instance.backState = writeBase;
     
-    UIApplication *app = [UIApplication sharedApplication];
-    [app setStatusBarHidden:NO];
-    [app setStatusBarStyle:UIStatusBarStyleLightContent];
-    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
     [self applicationShowAuth];
+    UIViewController *viewController = [[UIViewController alloc] init];
+    self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
     
     
@@ -76,6 +74,7 @@
                     AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
                     self.window.rootViewController = authVC;
                     self.navigationController = (UINavigationController *)authVC;
+                    [self.window makeKeyAndVisible];
                 }
             }
         }
@@ -84,6 +83,7 @@
         AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
         self.window.rootViewController = authVC;
         self.navigationController = (UINavigationController *)authVC;
+        [self.window makeKeyAndVisible];
     }];
 }
 
@@ -98,10 +98,12 @@
             HomeViewController *home = [[UIStoryboard storyboardWithName:@"Home" bundle:nil]instantiateInitialViewController];
             self.window.rootViewController = home;
             self.navigationController = (UINavigationController *)home;
+            [self.window makeKeyAndVisible];
         }else{
             AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
             self.window.rootViewController = authVC;
             self.navigationController = (UINavigationController *)authVC;
+            [self.window makeKeyAndVisible];
         }
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
