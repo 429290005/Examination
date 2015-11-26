@@ -38,10 +38,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    [self applicationShowAuth];
-    UIViewController *viewController = [[UIViewController alloc] init];
-    self.window.rootViewController = viewController;
-    [self.window makeKeyAndVisible];
+    //    上架到appStore 打开这段
+    //    [self applicationShowAuth];
+    //    UIViewController *viewController = [[UIViewController alloc] init];
+    //    self.window.rootViewController = viewController;
+    //    [self.window makeKeyAndVisible];
+    
+    // 直接使用打开这段
+    [self userAccurateLogin];
     
     
     return YES;
@@ -54,29 +58,14 @@
         if ([result.message isEqualToString:@"200"]) {
             NSDictionary *dict = result.result;
             BOOL flag = [dict[@"status"] boolValue];
-            Instance *instance = [Instance sharedInstance];
+            // YES : 走正常的用户登陆 NO：Apple正在审核
             if (flag) {
-                instance.isAssessor = YES;
-                NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                [params setObject:kTestAuth forKey:@"auth_code"];
-                [params setObject:kTestUDID forKey:@"device"];
-                [self applicationLoginWithParmas:params];
+                [self userAccurateLogin];
             }else{
-                instance.isAssessor = NO;
-                if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
-                    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-                    NSString *UUID = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_DEVICE_UUID]];
-                    NSString *Code = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_APP_AUCH_CODE]];
-                    [params setObject:Code forKey:@"auth_code"];
-                    [params setObject:UUID forKey:@"device"];
-                    [self applicationLoginWithParmas:params];
-                }else{
-                    AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-                    self.window.rootViewController = authVC;
-                    self.navigationController = (UINavigationController *)authVC;
-                    [self.window makeKeyAndVisible];
-                }
+                [self shaBiAppleChecking];
             }
+        }else{
+            [self shaBiAppleChecking];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
@@ -85,6 +74,33 @@
         self.navigationController = (UINavigationController *)authVC;
         [self.window makeKeyAndVisible];
     }];
+}
+
+- (void) shaBiAppleChecking{
+    Instance *instance = [Instance sharedInstance];
+    instance.isAssessor = YES;
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:kTestAuth forKey:@"auth_code"];
+    [params setObject:kTestUDID forKey:@"device"];
+    [self applicationLoginWithParmas:params];
+}
+
+- (void) userAccurateLogin{
+    Instance *instance = [Instance sharedInstance];
+    instance.isAssessor = NO;
+    if ([CHKeychainTool load:KEY_APP_AUCH_CODE]) {
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        NSString *UUID = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_DEVICE_UUID]];
+        NSString *Code = [NSString stringWithFormat:@"%@",[CHKeychainTool load:KEY_APP_AUCH_CODE]];
+        [params setObject:Code forKey:@"auth_code"];
+        [params setObject:UUID forKey:@"device"];
+        [self applicationLoginWithParmas:params];
+    }else{
+        AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+        self.window.rootViewController = authVC;
+        self.navigationController = (UINavigationController *)authVC;
+        [self.window makeKeyAndVisible];
+    }
 }
 
 - (void) applicationLoginWithParmas:(NSDictionary *) params
