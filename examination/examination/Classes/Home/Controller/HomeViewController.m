@@ -49,7 +49,7 @@
         if (courseArray.count) {
             [self.dataList removeAllObjects];
         }
-        [self.dataList addObjectsFromArray:courseArray];
+        [self.dataList addObjectsFromArray:[self appChackingRemoveNotprepareWith:courseArray]];
         [self.collectionView reloadData];
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
@@ -60,8 +60,26 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
 }
+
+/**
+ *  如果苹果正在审核，去掉没有准备好的试卷
+ */
+- (NSMutableArray *) appChackingRemoveNotprepareWith:(NSArray *) courseArray
+{
+    Instance *instance = [Instance sharedInstance];
+    NSMutableArray *array = [NSMutableArray array];
+    if (!instance.isAssessor) return (NSMutableArray *)courseArray;
+    [courseArray enumerateObjectsUsingBlock:^(CourseModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSInteger status = [obj.exam_status integerValue];
+        if (status == 2) {
+            [array addObject:obj];
+        }
+    }];
+    return array;
+}
+
+#pragma mark - UICollectionViewDelegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -86,7 +104,9 @@
     return UIEdgeInsetsMake(20, 15, 20, 15);
 }
 
-//UICollectionView被选中时调用的方法
+/**
+ *  UICollectionView被选中时调用的方法
+ */
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ExamTableViewController *examVC = [[ExamTableViewController alloc] init];
@@ -101,6 +121,7 @@
  *  2. 考卷已经准备好：正常
  *  3. 考卷已经锁定：锁定
  */
+
 -(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeCollectionViewCell * cell = (HomeCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
