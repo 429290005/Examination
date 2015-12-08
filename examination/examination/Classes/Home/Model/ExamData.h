@@ -16,4 +16,6 @@
 
 @property (nonatomic,copy) NSString *exam_id;
 
+@property (nonatomic,copy) NSString *id;
+
 @end

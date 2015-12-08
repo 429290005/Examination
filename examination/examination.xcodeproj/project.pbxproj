@@ -19,6 +19,7 @@
 		4E4AEFD71B9DE54D005D6D97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E4AEFD01B9DE54D005D6D97 /* Main.storyboard */; };
 		4E4AEFDB1B9DEA2D005D6D97 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E4AEFDA1B9DEA2D005D6D97 /* Auth.storyboard */; };
 		4E4AEFDE1B9DEA3D005D6D97 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4AEFDD1B9DEA3D005D6D97 /* HomeViewController.m */; };
+		4EB11C181C16E1FD0004FFD4 /* RegisterUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */; };
 		4EC808971BA70A6800EE8243 /* SkywareHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808961BA70A6800EE8243 /* SkywareHttpTool.m */; };
 		4EC8089A1BA71BED00EE8243 /* SkywareResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808991BA71BED00EE8243 /* SkywareResult.m */; };
 		4EC8089D1BA71E3800EE8243 /* AuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC8089C1BA71E3800EE8243 /* AuthViewController.m */; };
@@ -73,6 +74,8 @@
 		4E4AEFDA1B9DEA2D005D6D97 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		4E4AEFDC1B9DEA3D005D6D97 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4E4AEFDD1B9DEA3D005D6D97 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		4EB11C161C16E1FD0004FFD4 /* RegisterUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserController.h; sourceTree = "<group>"; };
+		4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterUserController.m; sourceTree = "<group>"; };
 		4EC808951BA70A6800EE8243 /* SkywareHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkywareHttpTool.h; sourceTree = "<group>"; };
 		4EC808961BA70A6800EE8243 /* SkywareHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SkywareHttpTool.m; sourceTree = "<group>"; };
 		4EC808981BA71BED00EE8243 /* SkywareResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkywareResult.h; sourceTree = "<group>"; };
@@ -227,6 +230,8 @@
 				4EE5D80E1BABD9FF00879275 /* UserInfoViewController.m */,
 				4EE5D8131BABE22300879275 /* AboutViewController.h */,
 				4EE5D8141BABE22300879275 /* AboutViewController.m */,
+				4EB11C161C16E1FD0004FFD4 /* RegisterUserController.h */,
+				4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 			files = (
 				4EC808BE1BA80D3000EE8243 /* ExamModel.m in Sources */,
 				4EC808BB1BA7FB4E00EE8243 /* ExamTableViewController.m in Sources */,
+				4EB11C181C16E1FD0004FFD4 /* RegisterUserController.m in Sources */,
 				4EC808B51BA7F1BB00EE8243 /* CourseModel.m in Sources */,
 				4E045F851BAAADD0009356DA /* ExamTableHeadView.m in Sources */,
 				4EC808C11BA80D7E00EE8243 /* CatalogModel.m in Sources */,

@@ -37,6 +37,7 @@
 
 - (void)getExamData
 {
+    [SVProgressHUD show];
     Instance *instance = [Instance sharedInstance];
     [SkywareHttpTool HttpToolGetWithUrl:exam paramesers:@[self.exam_id] requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
@@ -102,7 +103,6 @@
     
     CatalogModel *catalog =  _catalogModel[indexPath.section];
     ExamData *data = catalog.data[indexPath.row];
-    
     QuestionViewController *questionVC = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"QuestionViewController"];
     questionVC.data = data;
     questionVC.examModel = _examM;

@@ -12,11 +12,10 @@
 
 - (CGSize) sizeWithFont:(UIFont *) font
 {
-    
-    return [self sizeWithFont:font :MAXFLOAT];
+    return [self sizeWithFont:font MaxWidth:MAXFLOAT];
 }
 
-- (CGSize) sizeWithFont:(UIFont *)font :(CGFloat) width
+- (CGSize) sizeWithFont:(UIFont *)font MaxWidth:(CGFloat) width
 {
     NSDictionary *dict = @{NSFontAttributeName:font};
     CGSize size = [self boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;

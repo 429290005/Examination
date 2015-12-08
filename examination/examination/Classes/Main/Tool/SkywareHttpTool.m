@@ -58,7 +58,6 @@
 
 +(void)HttpToolGetWithUrl:(NSString *)url paramesers:(NSArray *)parameser requestHeaderField:(NSDictionary *) header SuccessJson:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    [SVProgressHUD show];
     NSString *URL = [SkywareHttpTool getURLWithRUL:url AndParamesers:parameser];
     [HttpTool HttpToolGetWithUrl: URL paramesers:nil requestHeaderField:[SkywareHttpTool getSignatureWithRequestHeader:header URL:URL] Serializer:JSONResponseSerializer Success:^(id json) {
         if (success) {

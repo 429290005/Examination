@@ -12,4 +12,15 @@
 
 LXSingletonM(Instance)
 
+
+
+- (NSString *)token
+{
+    if (!_token) {
+        return @"";
+    }else{
+        return _token;
+    }
+}
+
 @end

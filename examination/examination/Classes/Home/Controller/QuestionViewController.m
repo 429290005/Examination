@@ -15,9 +15,13 @@
     NSInteger _currentUnit;
     NSInteger _currentQuestion;
 }
-@property (weak, nonatomic) IBOutlet UILabel *Qtitle;
-@property (weak, nonatomic) IBOutlet UILabel *unit;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *viewHeight;
+@property (weak, nonatomic) IBOutlet UIView *questionView;
+@property (weak, nonatomic) IBOutlet UIView *buttonsView;
+@property (weak, nonatomic) IBOutlet UILabel *Qtitle;
+@property (weak, nonatomic) IBOutlet UILabel *Qcontent;
+@property (weak, nonatomic) IBOutlet UILabel *unit;
 @property (weak, nonatomic) IBOutlet UILabel *answer;
 @end
 
@@ -26,8 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavTitle:@"我的考题"];
-    [self getQuestionDataWithUnit:self.data.exam_id AndQuestion:self.data.question_no];
-    
+    [self getQuestionDataWithid:self.data.id];
     [self setHeadView];
 }
 
@@ -38,10 +41,11 @@
     _currentQuestion = self.quest_no;
 }
 
-- (void)getQuestionDataWithUnit:(NSString *) exam_id AndQuestion:(NSString *) question_no
+- (void)getQuestionDataWithid:(NSString *)question_id
 {
+    [SVProgressHUD show];
     Instance *instance = [Instance sharedInstance];
-    [SkywareHttpTool HttpToolGetWithUrl:question paramesers:@[exam_id,question_no] requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
+    [SkywareHttpTool HttpToolGetWithUrl:question paramesers:@[question_id] requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
         NSArray *requestArray = result.result;
         QuestionModel *questionM = [QuestionModel objectWithKeyValues: [requestArray firstObject]];
@@ -62,11 +66,19 @@
 
 - (void) setViewData:(QuestionModel *) questionM
 {
-    self.Qtitle.text = questionM.title;
+    self.Qtitle.text = [NSString stringWithFormat:@"第%@题",questionM.question_no];
+    self.Qcontent.text = questionM.title;
     self.unit.text = [NSString stringWithFormat:@"第%@部分",questionM.unit];
-    
     self.answer.text = questionM.answer;
+    
+    CGSize qsize = [questionM.title sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
+    CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 110];
+    
+    self.viewHeight.constant = qsize.height + asize.height + 300;
+    
+    [self updateViewConstraints];
 }
+
 - (IBAction)goExamBtnClick:(UIButton *)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -88,11 +100,11 @@
             NSArray *nextQuestArray = catalog.data; // 上一部分题Array
             _currentQuestion = nextQuestArray.count -1; // 从最后一个开始
             ExamData *Edata = nextQuestArray[_currentQuestion];
-            [self getQuestionDataWithUnit:Edata.exam_id AndQuestion:Edata.question_no];
+            [self getQuestionDataWithid:Edata.id];
         }
     }else{
-        ExamData *Edata = dataArray[--_currentQuestion ];
-        [self getQuestionDataWithUnit:Edata.exam_id AndQuestion:Edata.question_no];
+        ExamData *Edata = dataArray[--_currentQuestion];
+        [self getQuestionDataWithid:Edata.id];
     }
 }
 
@@ -111,11 +123,11 @@
             CatalogModel *catalog =  array[++_currentUnit]; // 取下一部分
             NSArray *nextQuestArray = catalog.data; // 下一部分题Array
             ExamData *Edata = nextQuestArray[_currentQuestion];
-            [self getQuestionDataWithUnit:Edata.exam_id AndQuestion:Edata.question_no];
+            [self getQuestionDataWithid:Edata.id];
         }
     }else{
         ExamData *Edata = dataArray[++_currentQuestion ];
-        [self getQuestionDataWithUnit:Edata.exam_id AndQuestion:Edata.question_no];
+        [self getQuestionDataWithid:Edata.id];
     }
 }
 

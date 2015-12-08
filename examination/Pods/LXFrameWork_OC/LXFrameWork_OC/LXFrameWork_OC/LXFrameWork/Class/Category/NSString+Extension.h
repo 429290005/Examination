@@ -19,7 +19,7 @@
  *  根据传入的字体计算所占大小
  *  width : 传入最大宽度计算出高度
  */
-- (CGSize) sizeWithFont:(UIFont *)font :(CGFloat) width;
+- (CGSize) sizeWithFont:(UIFont *)font MaxWidth:(CGFloat) width;
 
 /**
  *  对 url 进行编码

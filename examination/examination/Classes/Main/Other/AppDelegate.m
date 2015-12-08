@@ -39,13 +39,19 @@
     self.window.backgroundColor = [UIColor whiteColor];
     
     // 上架到appStore 打开这段
-    [self applicationShowAuth];
-    UIViewController *viewController = [[UIViewController alloc] init];
-    self.window.rootViewController = viewController;
-    [self.window makeKeyAndVisible];
+    //    [self applicationShowAuth];
+    //    UIViewController *viewController = [[UIViewController alloc] init];
+    //    self.window.rootViewController = viewController;
+    //    [self.window makeKeyAndVisible];
     
     // 直接使用打开这段
-    //    [self userAccurateLogin];
+//    [self userAccurateLogin];
+    
+    
+    UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
+    self.window.rootViewController = loginVC;
+    self.navigationController = (UINavigationController *)loginVC;
+    [self.window makeKeyAndVisible];
     
     
     return YES;
