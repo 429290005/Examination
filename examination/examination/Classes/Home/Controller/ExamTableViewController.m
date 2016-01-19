@@ -51,7 +51,7 @@
             [SVProgressHUD dismiss];
         }
     } failure:^(NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:@"网络不给力，请检查网络设置"];
     }];
 }
 

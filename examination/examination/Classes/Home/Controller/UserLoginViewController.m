@@ -9,6 +9,7 @@
 #import "UserLoginViewController.h"
 #import "HomeViewController.h"
 #import "CHKeychainTool.h"
+#import "RegisterUserController.h"
 
 @interface UserLoginViewController ()
 
@@ -87,9 +88,11 @@
         [SVProgressHUD showErrorWithStatus:@"用户名或密码错误"];
     }];
 }
-- (IBAction)register:(UIButton *)sender {
+
+- (IBAction)registerUser:(UIButton *)sender {
     
-    
+    RegisterUserController *userVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateViewControllerWithIdentifier:@""];
+    [self.navigationController pushViewController:userVC animated:YES];
     
 }
 

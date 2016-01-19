@@ -19,6 +19,7 @@
 		4E4AEFD71B9DE54D005D6D97 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E4AEFD01B9DE54D005D6D97 /* Main.storyboard */; };
 		4E4AEFDB1B9DEA2D005D6D97 /* Auth.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E4AEFDA1B9DEA2D005D6D97 /* Auth.storyboard */; };
 		4E4AEFDE1B9DEA3D005D6D97 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4AEFDD1B9DEA3D005D6D97 /* HomeViewController.m */; };
+		4E70B7231C43BDA8003A9503 /* NotWiFiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B7221C43BDA8003A9503 /* NotWiFiViewController.m */; };
 		4EB11C181C16E1FD0004FFD4 /* RegisterUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */; };
 		4EC808971BA70A6800EE8243 /* SkywareHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808961BA70A6800EE8243 /* SkywareHttpTool.m */; };
 		4EC8089A1BA71BED00EE8243 /* SkywareResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC808991BA71BED00EE8243 /* SkywareResult.m */; };
@@ -74,6 +75,8 @@
 		4E4AEFDA1B9DEA2D005D6D97 /* Auth.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Auth.storyboard; sourceTree = "<group>"; };
 		4E4AEFDC1B9DEA3D005D6D97 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		4E4AEFDD1B9DEA3D005D6D97 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		4E70B7211C43BDA8003A9503 /* NotWiFiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotWiFiViewController.h; sourceTree = "<group>"; };
+		4E70B7221C43BDA8003A9503 /* NotWiFiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotWiFiViewController.m; sourceTree = "<group>"; };
 		4EB11C161C16E1FD0004FFD4 /* RegisterUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterUserController.h; sourceTree = "<group>"; };
 		4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterUserController.m; sourceTree = "<group>"; };
 		4EC808951BA70A6800EE8243 /* SkywareHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkywareHttpTool.h; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 				4EE5D8141BABE22300879275 /* AboutViewController.m */,
 				4EB11C161C16E1FD0004FFD4 /* RegisterUserController.h */,
 				4EB11C171C16E1FD0004FFD4 /* RegisterUserController.m */,
+				4E70B7211C43BDA8003A9503 /* NotWiFiViewController.h */,
+				4E70B7221C43BDA8003A9503 /* NotWiFiViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -529,6 +534,7 @@
 				4EE5D8031BAB131300879275 /* QuestionViewController.m in Sources */,
 				4E4AEFD61B9DE54D005D6D97 /* main.m in Sources */,
 				4EE5D8001BAB053C00879275 /* ExamData.m in Sources */,
+				4E70B7231C43BDA8003A9503 /* NotWiFiViewController.m in Sources */,
 				4EC808B81BA7F42800EE8243 /* HomeCollectionViewCell.m in Sources */,
 				4E4AEFD21B9DE54D005D6D97 /* ViewController.m in Sources */,
 				4E4AEFDE1B9DEA3D005D6D97 /* HomeViewController.m in Sources */,

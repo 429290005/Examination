@@ -53,9 +53,9 @@
             SkywareResult *result = [SkywareResult objectWithKeyValues:json];
             if ([result.message isEqualToString:@"200"]) {
                 [CHKeychainTool delete:KEY_APP_AUCH_CODE];
-                //                AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-                UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
-                [UIWindow changeWindowRootViewController:loginVC animated:YES];
+                                AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+//                UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
+                [UIWindow changeWindowRootViewController:authVC animated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:@"退出失败，请稍后重试"];
             }

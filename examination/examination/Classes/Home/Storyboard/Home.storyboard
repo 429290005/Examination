@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h5K-SB-o0Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="h5K-SB-o0Q">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
         <!--Base Navigation Controller-->
@@ -416,7 +416,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="课程信息：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLG-Sw-7HQ">
-                                <rect key="frame" x="25" y="382" width="70" height="17"/>
+                                <rect key="frame" x="25" y="377" width="70" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -434,7 +434,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="****" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpC-RI-ZFm">
-                                <rect key="frame" x="100" y="382" width="480" height="17"/>
+                                <rect key="frame" x="100" y="377" width="480" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -458,6 +458,7 @@
                             <constraint firstItem="zpC-RI-ZFm" firstAttribute="leading" secondItem="RLG-Sw-7HQ" secondAttribute="trailing" constant="5" id="Jkm-4D-BHi"/>
                             <constraint firstItem="nNr-YE-1gW" firstAttribute="top" secondItem="8tc-tz-km3" secondAttribute="bottom" constant="25" id="Kc9-ik-Qet"/>
                             <constraint firstItem="RLG-Sw-7HQ" firstAttribute="centerY" secondItem="zpC-RI-ZFm" secondAttribute="centerY" id="MDD-Ih-5FC"/>
+                            <constraint firstItem="zpC-RI-ZFm" firstAttribute="top" secondItem="fG6-An-ZN7" secondAttribute="bottom" constant="20" id="SDH-Hv-0tQ"/>
                             <constraint firstItem="8tc-tz-km3" firstAttribute="centerX" secondItem="nNr-YE-1gW" secondAttribute="centerX" id="X9R-Bt-Mis"/>
                             <constraint firstItem="8tc-tz-km3" firstAttribute="centerX" secondItem="RLG-Sw-7HQ" secondAttribute="centerX" id="Ye1-4f-aAZ"/>
                             <constraint firstItem="8tc-tz-km3" firstAttribute="top" secondItem="b5S-1K-lXU" secondAttribute="bottom" constant="25" id="ZbI-7Q-Xza"/>
@@ -476,6 +477,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="1xG-Bu-x1V"/>
+                                <exclude reference="u7K-LT-Fdc"/>
                             </mask>
                         </variation>
                     </view>
@@ -568,9 +570,60 @@
             </objects>
             <point key="canvasLocation" x="2273" y="198"/>
         </scene>
+        <!--Not Wi Fi View Controller-->
+        <scene sceneID="OBj-zq-RVK">
+            <objects>
+                <viewController storyboardIdentifier="NotWiFiViewController" id="r2A-hy-4Oy" customClass="NotWiFiViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mfb-yq-8TR"/>
+                        <viewControllerLayoutGuide type="bottom" id="icE-Mm-Ezr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="lUB-M5-7Ik">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NotWifi" translatesAutoresizingMaskIntoConstraints="NO" id="iwR-Qc-B2E">
+                                <rect key="frame" x="172" y="92" width="256" height="256"/>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="ioU-cH-qbD">
+                                <rect key="frame" x="290" y="348" width="20" height="20"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您的网络不给力点击刷新" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NPP-WS-Voq">
+                                <rect key="frame" x="207" y="388" width="187" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ioU-cH-qbD" firstAttribute="top" secondItem="iwR-Qc-B2E" secondAttribute="bottom" id="eHO-mH-2WG"/>
+                            <constraint firstItem="iwR-Qc-B2E" firstAttribute="centerY" secondItem="lUB-M5-7Ik" secondAttribute="centerY" constant="-80" id="eZs-9t-VZB"/>
+                            <constraint firstItem="NPP-WS-Voq" firstAttribute="centerX" secondItem="lUB-M5-7Ik" secondAttribute="centerX" id="sMi-lc-vNx"/>
+                            <constraint firstItem="ioU-cH-qbD" firstAttribute="centerX" secondItem="lUB-M5-7Ik" secondAttribute="centerX" id="wMw-6G-Phv"/>
+                            <constraint firstItem="iwR-Qc-B2E" firstAttribute="centerX" secondItem="lUB-M5-7Ik" secondAttribute="centerX" id="x9I-Kf-bi0"/>
+                            <constraint firstItem="NPP-WS-Voq" firstAttribute="top" secondItem="ioU-cH-qbD" secondAttribute="bottom" constant="20" id="xga-29-wfl"/>
+                            <constraint firstItem="NPP-WS-Voq" firstAttribute="top" secondItem="iwR-Qc-B2E" secondAttribute="bottom" constant="20" id="yP3-LS-GlR"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="yP3-LS-GlR"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="activity" destination="ioU-cH-qbD" id="eie-dK-FdO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qln-bc-pMm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2920" y="198"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Arrow" width="13" height="13"/>
+        <image name="NotWifi" width="256" height="256"/>
         <image name="user_def" width="100" height="141"/>
     </resources>
 </document>

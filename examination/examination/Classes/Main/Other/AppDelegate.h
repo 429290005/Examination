@@ -11,7 +11,7 @@
 
 @interface AppDelegate : BaseDelegate
 
-
+- (void) showWhat;
 
 @end
 

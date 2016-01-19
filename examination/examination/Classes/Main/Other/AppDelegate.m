@@ -12,9 +12,12 @@
 #import "CHKeychainTool.h"
 #import "SystemDeviceTool.h"
 #import "UserLoginViewController.h"
+#import "NotWiFiViewController.h"
 
 @interface AppDelegate ()
-
+{
+    NotWiFiViewController *notWifi;
+}
 @end
 
 @implementation AppDelegate
@@ -37,24 +40,27 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
-    
+    [self showWhat];
+    return YES;
+}
+
+- (void) showWhat
+{
     // 上架到appStore 打开这段
-    //    [self applicationShowAuth];
-    //    UIViewController *viewController = [[UIViewController alloc] init];
-    //    self.window.rootViewController = viewController;
-    //    [self.window makeKeyAndVisible];
-    
-    // 直接使用打开这段
-//    [self userAccurateLogin];
-    
-    
-    UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
-    self.window.rootViewController = loginVC;
-    self.navigationController = (UINavigationController *)loginVC;
+    [self applicationShowAuth];
+    notWifi = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"NotWiFiViewController"];
+    self.window.rootViewController = notWifi;
     [self.window makeKeyAndVisible];
     
+    // 直接使用打开这段
+    //    [self userAccurateLogin];
     
-    return YES;
+    // 改为登陆的方式
+    //    UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
+    //    self.window.rootViewController = loginVC;
+    //    self.navigationController = (UINavigationController *)loginVC;
+    //    [self.window makeKeyAndVisible];
+    
 }
 
 - (void) applicationShowAuth
@@ -71,14 +77,18 @@
                 [self shaBiAppleChecking];
             }
         }else{
-            [self shaBiAppleChecking];
+            notWifi.activity.hidden = YES;
+            [SVProgressHUD showErrorWithStatus:@"网络不给力请稍后重试"];
         }
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
-        AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-        self.window.rootViewController = authVC;
-        self.navigationController = (UINavigationController *)authVC;
-        [self.window makeKeyAndVisible];
+        notWifi.activity.hidden = YES;
+        [SVProgressHUD showErrorWithStatus:@"网络不给力请稍后重试"];
+        //        AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+        //        self.window.rootViewController = authVC;
+        //        self.navigationController = (UINavigationController *)authVC;
+        //        [self.window makeKeyAndVisible];
+        
     }];
 }
 
@@ -122,14 +132,18 @@
             self.navigationController = (UINavigationController *)home;
             [self.window makeKeyAndVisible];
         }else{
-            AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
-            self.window.rootViewController = authVC;
-            self.navigationController = (UINavigationController *)authVC;
-            [self.window makeKeyAndVisible];
+            //            AuthViewController *authVC = [[UIStoryboard storyboardWithName:@"Auth" bundle:nil] instantiateInitialViewController];
+            //            self.window.rootViewController = authVC;
+            //            self.navigationController = (UINavigationController *)authVC;
+            //            [self.window makeKeyAndVisible];
+            [SVProgressHUD showErrorWithStatus:@"网络不给力请稍后重试"];
+            notWifi.activity.hidden = YES;
         }
         [SVProgressHUD dismiss];
     } failure:^(NSError *error) {
         NSLog(@"%@",error);
+        [SVProgressHUD showErrorWithStatus:@"网络不给力请稍后重试"];
+        notWifi.activity.hidden = YES;
     }];
 }
 

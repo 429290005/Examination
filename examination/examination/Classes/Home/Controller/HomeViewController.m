@@ -11,10 +11,12 @@
 #import "ExamTableViewController.h"
 #import "UserMenuViewController.h"
 #import "CourseModel.h"
+#import <MJRefresh.h>
 
 @interface HomeViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic,strong) MJRefreshHeader *refHeader;
 
 @property (nonatomic,strong) NSMutableArray *dataList;
 @end
@@ -25,22 +27,37 @@
     [super viewDidLoad];
     [self setNavTitle:@"首页"];
     
-    [self getUserCourse];
-    
     __weak typeof (self) nav = self;
-    [self setRightBtnWithImage:[UIImage imageNamed:@"main_menu_btn"] orTitle:nil ClickOption:^{
-        UserMenuViewController *menu = [[UserMenuViewController alloc] init];
-        [nav.navigationController pushViewController:menu animated:YES];
+    Instance *instance = [Instance sharedInstance];
+    if (!instance.isAssessor) {
+        [self setRightBtnWithImage:[UIImage imageNamed:@"main_menu_btn"] orTitle:nil ClickOption:^{
+            UserMenuViewController *menu = [[UserMenuViewController alloc] init];
+            [nav.navigationController pushViewController:menu animated:YES];
+        }];
+    }
+    [self setLeftBtnWithImage:[UIImage imageNamed:@"popover_icon_refresh"] orTitle:nil ClickOption:^{
+        [nav.refHeader beginRefreshing];
     }];
     
-    [self setLeftBtnWithImage:[UIImage imageNamed:@"popover_icon_refresh"] orTitle:nil ClickOption:^{
-        [nav getUserCourse];
-    }];
+    self.collectionView.header = self.refHeader;
+    [self.refHeader beginRefreshing];
+}
+
+- (MJRefreshHeader *)refHeader
+{
+    if (!_refHeader) {
+        _refHeader = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    }
+    return _refHeader;
+}
+
+- (void)loadNewData
+{
+    [self getUserCourse];
 }
 
 - (void) getUserCourse
 {
-    [SVProgressHUD show];
     Instance *instance = [Instance sharedInstance];
     [SkywareHttpTool HttpToolGetWithUrl:userCourse paramesers:nil requestHeaderField:@{@"token":instance.token} SuccessJson:^(id json) {
         SkywareResult *result = [SkywareResult objectWithKeyValues:json];
@@ -51,7 +68,9 @@
         [self.dataList addObjectsFromArray:[self appChackingRemoveNotprepareWith:courseArray]];
         [self.collectionView reloadData];
         [SVProgressHUD dismiss];
+        [self.refHeader endRefreshing];
     } failure:^(NSError *error) {
+        [self.refHeader endRefreshing];
         [SVProgressHUD dismiss];
     }];
 }
