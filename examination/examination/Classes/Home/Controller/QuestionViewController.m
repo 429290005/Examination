@@ -66,16 +66,41 @@
 
 - (void) setViewData:(QuestionModel *) questionM
 {
+    NSRange srcRange = [questionM.title rangeOfString:@"src=\""];
+    NSRange jpgRange = [questionM.title rangeOfString:@".jpg"];
+    if (srcRange.location != NSNotFound) {
+        NSMutableString *Mstring = [NSMutableString stringWithString:questionM.title];
+        NSRange jpgUrlRange = NSMakeRange(srcRange.location + 5, jpgRange.location - srcRange.location -1);
+        NSString *str = [questionM.title substringWithRange:jpgUrlRange];
+        NSMutableString *newUrlStr = [NSMutableString stringWithFormat:@"%@%@",@"http://admin.kdt.webbig.cn",str];
+        [Mstring replaceCharactersInRange:jpgUrlRange withString:newUrlStr];
+//        NSLog(@"%@",str);
+//        NSLog(@"%@",Mstring);
+        questionM.title = Mstring;
+    }
+    NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithData:[questionM.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     self.Qtitle.text = [NSString stringWithFormat:@"第%@题",questionM.question_no];
-    self.Qcontent.text = questionM.title;
-    self.unit.text = [NSString stringWithFormat:@"第%@部分",questionM.unit];
-    self.answer.text = questionM.answer;
+    self.Qcontent.attributedText = attrTitle;
+    self.Qcontent.textAlignment  = NSTextAlignmentCenter;
+    self.Qcontent.font = [UIFont systemFontOfSize:15];
+    self.unit.text = [self switchUnit:questionM.unit];
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[questionM.answer dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    self.answer.font = [UIFont systemFontOfSize:15];
+    self.answer.attributedText = attrStr;
     
     CGSize qsize = [questionM.title sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
     CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 110];
     
-    self.viewHeight.constant = qsize.height + asize.height + 300;
-    
+    NSRange imgHRange = [questionM.title rangeOfString:@"height:"];
+    if (imgHRange.location != NSNotFound) {
+        NSString *imagelong = [questionM.title substringFromIndex:imgHRange.location];
+        NSRange pxRange = [imagelong rangeOfString:@"px;"];
+        NSString *imageH = [imagelong substringWithRange:NSMakeRange(imgHRange.length, pxRange.location - imgHRange.length)];
+        self.viewHeight.constant = qsize.height + asize.height + [imageH floatValue] + 300;
+//        NSLog(@"%@",imageH);
+    }else{
+        self.viewHeight.constant = qsize.height + asize.height + 300;
+    }
     [self updateViewConstraints];
 }
 
@@ -129,6 +154,51 @@
         ExamData *Edata = dataArray[++_currentQuestion ];
         [self getQuestionDataWithid:Edata.id];
     }
+}
+
+- (NSString *) switchUnit:(NSString *) unit
+{
+    NSInteger tag = [unit integerValue];
+    switch (tag) {
+        case 1:
+        {
+            return @"单选题";
+        }
+            break;
+        case 2:
+        {
+            return @"多选题";
+        }
+            break;
+        case 3:
+        {
+            return @"判断题";
+        }
+            break;
+        case 4:
+        {
+            return @"翻译题";
+        }
+            break;
+        case 5:
+        {
+            return @"简答题";
+        }
+            break;
+        case 6:
+        {
+            return @"计算题";
+        }
+            break;
+        case 7:
+        {
+            return @"论述题";
+        }
+            break;
+        default:
+            break;
+    }
+    return @"";
 }
 
 @end

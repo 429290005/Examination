@@ -92,7 +92,9 @@
     }
     CatalogModel *catalog =  _catalogModel[indexPath.section];
     ExamData *data = catalog.data[indexPath.row];
-    cell.textLabel.text = data.title;
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[data.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
+    cell.textLabel.attributedText = attrStr;
+    cell.textLabel.font = [UIFont systemFontOfSize:15];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
