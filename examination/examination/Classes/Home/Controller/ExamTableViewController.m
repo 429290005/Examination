@@ -92,6 +92,14 @@
     }
     CatalogModel *catalog =  _catalogModel[indexPath.section];
     ExamData *data = catalog.data[indexPath.row];
+    NSRange srcRange = [data.title rangeOfString:@"<p><img"];
+    NSRange jpgRange = [data.title rangeOfString:@"/></p>"];
+    if (srcRange.location != NSNotFound && jpgRange.location != NSNotFound) {
+        NSMutableString *Mstring = [NSMutableString stringWithString:data.title];
+        NSRange jpgUrlRange = NSMakeRange(srcRange.location, jpgRange.location - srcRange.location + jpgRange.length);
+        [Mstring deleteCharactersInRange:jpgUrlRange];
+        data.title = Mstring;
+    }
     NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[data.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType} documentAttributes:nil error:nil];
     cell.textLabel.attributedText = attrStr;
     cell.textLabel.font = [UIFont systemFontOfSize:15];
