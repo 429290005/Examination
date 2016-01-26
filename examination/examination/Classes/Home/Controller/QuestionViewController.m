@@ -66,61 +66,52 @@
 
 - (void) setViewData:(QuestionModel *) questionM
 {
-    NSRange srcRange = [questionM.title rangeOfString:@"src=\""];
-    NSRange jpgRange = [questionM.title rangeOfString:@".jpg"];
-    if (jpgRange.location == NSNotFound) {
-        jpgRange = [questionM.title rangeOfString:@".png"];
-    }
-    if (srcRange.location != NSNotFound && jpgRange.location != NSNotFound) {
-        NSMutableString *Mstring = [NSMutableString stringWithString:questionM.title];
-        NSRange jpgUrlRange = NSMakeRange(srcRange.location + 5, jpgRange.location - srcRange.location -1);
-        NSString *str = [questionM.title substringWithRange:jpgUrlRange];
-        NSMutableString *newUrlStr = [NSMutableString stringWithFormat:@"%@%@",@"http://admin.kdt.webbig.cn",str];
-        [Mstring replaceCharactersInRange:jpgUrlRange withString:newUrlStr];
-        questionM.title = Mstring;
-    }
-    NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithData:[questionM.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-    self.Qtitle.text = [NSString stringWithFormat:@"第%@题",questionM.question_no];
-    self.Qcontent.attributedText = attrTitle;
-    self.Qcontent.textAlignment  = NSTextAlignmentCenter;
-    self.Qcontent.font = [UIFont systemFontOfSize:15];
     self.unit.text = [self switchUnit:questionM.unit];
+    self.Qtitle.text = [NSString stringWithFormat:@"第%@题",questionM.question_no];
     
-    NSRange answerSrcRange = [questionM.answer rangeOfString:@"src=\""];
-    NSRange answerJpgRange = [questionM.answer rangeOfString:@".jpg"];
-    if (answerJpgRange.location == NSNotFound) {
-        answerJpgRange = [questionM.answer rangeOfString:@".png"];
-    }
-    if (answerSrcRange.location != NSNotFound && answerJpgRange.location != NSNotFound) {
-        NSMutableString *Mstring = [NSMutableString stringWithString:questionM.answer];
-        NSRange jpgUrlRange = NSMakeRange(answerSrcRange.location + 5, answerJpgRange.location - answerSrcRange.location -1);
-        NSString *str = [questionM.answer substringWithRange:jpgUrlRange];
-        NSMutableString *newUrlStr = [NSMutableString stringWithFormat:@"%@%@",@"http://admin.kdt.webbig.cn",str];
-        [Mstring replaceCharactersInRange:jpgUrlRange withString:newUrlStr];
-        questionM.answer = Mstring;
-    }
+    NSMutableString *Mstring = [NSMutableString stringWithString:questionM.title];
+    questionM.title =  [Mstring stringByReplacingOccurrencesOfString:@"/upload/image/" withString:@"http://admin.kdt.webbig.cn/upload/image/"];
+    NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithData:[questionM.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+    self.Qcontent.attributedText = attrTitle;
+    self.Qcontent.textAlignment  = NSTextAlignmentLeft;
+    self.Qcontent.font = [UIFont systemFontOfSize:15];
+    
+    NSMutableString *answerString = [NSMutableString stringWithString:questionM.answer];
+    questionM.answer =  [answerString stringByReplacingOccurrencesOfString:@"/upload/image/" withString:@"http://admin.kdt.webbig.cn/upload/image/"];
     NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[questionM.answer dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     self.answer.attributedText = attrStr;
-    self.answer.textAlignment  = NSTextAlignmentCenter;
+    self.answer.textAlignment  = NSTextAlignmentLeft;
     self.answer.font = [UIFont systemFontOfSize:15];
+    
+    
+    __block CGFloat allImageHeight = 0.0;
+    for(int i =0; i < [attrTitle length]; i++)
+    {
+        NSAttributedString *temp = [attrTitle attributedSubstringFromRange:NSMakeRange(i, 1)];
+        [temp enumerateAttributesInRange:NSMakeRange(0, temp.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+            NSTextAttachment *textAtt = [attrs objectForKey:@"NSAttachment"];
+            if (textAtt) {
+//                NSLog(@"%@",NSStringFromCGRect(textAtt.bounds));
+                allImageHeight += textAtt.bounds.size.height;
+            }
+        }];
+    }
+    
+    for(int i =0; i < [attrStr length]; i++)
+    {
+        NSAttributedString *temp = [attrStr attributedSubstringFromRange:NSMakeRange(i, 1)];
+        [temp enumerateAttributesInRange:NSMakeRange(0, temp.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
+            NSTextAttachment *textAtt = [attrs objectForKey:@"NSAttachment"];
+            if (textAtt) {
+//                NSLog(@"%@",NSStringFromCGRect(textAtt.bounds));
+                allImageHeight += textAtt.bounds.size.height;
+            }
+        }];
+    }
     
     CGSize qsize = [questionM.title sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
     CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 110];
-    NSRange titleImageHRange = [questionM.title rangeOfString:@"height:"];
-    NSRange answerImageHRange = [questionM.answer rangeOfString:@"height:"];
-    CGFloat allImageHeight = 0.0;
-    if (titleImageHRange.location != NSNotFound) {
-        NSString *imagelong = [questionM.title substringFromIndex:titleImageHRange.location];
-        NSRange pxRange = [imagelong rangeOfString:@"px;"];
-        NSString *imageH = [imagelong substringWithRange:NSMakeRange(titleImageHRange.length, pxRange.location - titleImageHRange.length)];
-        allImageHeight += [imageH floatValue];
-    }
-    if(answerImageHRange.location != NSNotFound){
-        NSString *imagelong = [questionM.answer substringFromIndex:answerImageHRange.location];
-        NSRange pxRange = [imagelong rangeOfString:@"px;"];
-        NSString *imageH = [imagelong substringWithRange:NSMakeRange(answerImageHRange.length, pxRange.location - answerImageHRange.length)];
-        allImageHeight += [imageH floatValue];
-    }
+    
     self.viewHeight.constant = qsize.height + asize.height + allImageHeight +300;
     
     [self updateViewConstraints];
