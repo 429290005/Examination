@@ -69,20 +69,7 @@
     self.unit.text = [self switchUnit:questionM.unit];
     self.Qtitle.text = [NSString stringWithFormat:@"第%@题",questionM.question_no];
     
-    NSMutableString *Mstring = [NSMutableString stringWithString:questionM.title];
-    questionM.title =  [Mstring stringByReplacingOccurrencesOfString:@"/upload/image/" withString:@"http://admin.kdt.webbig.cn/upload/image/"];
     NSMutableAttributedString * attrTitle = [[NSMutableAttributedString alloc] initWithData:[questionM.title dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-    self.Qcontent.attributedText = attrTitle;
-    self.Qcontent.textAlignment  = NSTextAlignmentLeft;
-    self.Qcontent.font = [UIFont systemFontOfSize:15];
-    
-    NSMutableString *answerString = [NSMutableString stringWithString:questionM.answer];
-    questionM.answer =  [answerString stringByReplacingOccurrencesOfString:@"/upload/image/" withString:@"http://admin.kdt.webbig.cn/upload/image/"];
-    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[questionM.answer dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-    self.answer.attributedText = attrStr;
-    self.answer.textAlignment  = NSTextAlignmentLeft;
-    self.answer.font = [UIFont systemFontOfSize:15];
-    
     
     __block CGFloat allImageHeight = 0.0;
     for(int i =0; i < [attrTitle length]; i++)
@@ -91,11 +78,20 @@
         [temp enumerateAttributesInRange:NSMakeRange(0, temp.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
             NSTextAttachment *textAtt = [attrs objectForKey:@"NSAttachment"];
             if (textAtt) {
-//                NSLog(@"%@",NSStringFromCGRect(textAtt.bounds));
+                if (textAtt.bounds.size.width > 300) {
+                    CGSize size = [self computeScaleWithSize:textAtt.bounds.size AndMaxSize:CGSizeMake(300, 0)];
+                    textAtt.bounds = CGRectMake(0, 0, size.width, size.height);
+                    //                    NSLog(@"%@",NSStringFromCGSize(size));
+                }
                 allImageHeight += textAtt.bounds.size.height;
             }
         }];
     }
+    self.Qcontent.attributedText = attrTitle;
+    self.Qcontent.textAlignment  = NSTextAlignmentLeft;
+    self.Qcontent.font = [UIFont systemFontOfSize:15];
+    
+    NSMutableAttributedString * attrStr = [[NSMutableAttributedString alloc] initWithData:[questionM.answer dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
     
     for(int i =0; i < [attrStr length]; i++)
     {
@@ -103,17 +99,23 @@
         [temp enumerateAttributesInRange:NSMakeRange(0, temp.length) options:NSAttributedStringEnumerationReverse usingBlock:^(NSDictionary<NSString *,id> * _Nonnull attrs, NSRange range, BOOL * _Nonnull stop) {
             NSTextAttachment *textAtt = [attrs objectForKey:@"NSAttachment"];
             if (textAtt) {
-//                NSLog(@"%@",NSStringFromCGRect(textAtt.bounds));
+                if (textAtt.bounds.size.width > 300) {
+                    CGSize size = [self computeScaleWithSize:textAtt.bounds.size AndMaxSize:CGSizeMake(300, 0)];
+                    textAtt.bounds = CGRectMake(0, 0, size.width, size.height);
+                    //                    NSLog(@"%@",NSStringFromCGSize(size));
+                }
                 allImageHeight += textAtt.bounds.size.height;
             }
         }];
     }
     
+    self.answer.attributedText = attrStr;
+    self.answer.textAlignment  = NSTextAlignmentLeft;
+    self.answer.font = [UIFont systemFontOfSize:15];
+    
     CGSize qsize = [questionM.title sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
     CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 110];
-    
     self.viewHeight.constant = qsize.height + asize.height + allImageHeight +300;
-    
     [self updateViewConstraints];
 }
 
@@ -212,6 +214,22 @@
             break;
     }
     return @"";
+}
+
+- (CGSize) computeScaleWithSize:(CGSize) size AndMaxSize:(CGSize) maxSize
+{
+    CGFloat width = 0;
+    CGFloat height = 0;
+    CGFloat scale = size.width / size.height;
+    if (maxSize.width == 0 && maxSize.height != 0) {
+        height = maxSize.height;
+        width = height * scale;
+    }
+    if (maxSize.height == 0 && maxSize.width != 0){
+        width = maxSize.width;
+        height = width / scale;
+    }
+    return CGSizeMake(width, height);
 }
 
 @end

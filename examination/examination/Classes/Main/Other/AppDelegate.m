@@ -47,16 +47,16 @@
 - (void) showWhat
 {
     // 上架到appStore 打开这段
-    //    [self applicationShowAuth];
-    //    notWifi = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"NotWiFiViewController"];
-    //    self.window.rootViewController = notWifi;
-    //    [self.window makeKeyAndVisible];
+    [self applicationShowAuth];
+    notWifi = [[UIStoryboard storyboardWithName:@"Home" bundle:nil] instantiateViewControllerWithIdentifier:@"NotWiFiViewController"];
+    self.window.rootViewController = notWifi;
+    [self.window makeKeyAndVisible];
     
     // 需要授权码登录
     //    [self userAccurateLogin];
     
     // 使用测试账号直接登录
-    [self shaBiAppleChecking];
+    //    [self shaBiAppleChecking];
     
     // 改为登陆的方式
     //    UserLoginViewController *loginVC = [[UIStoryboard storyboardWithName:@"User" bundle:nil] instantiateInitialViewController];
