@@ -108,14 +108,15 @@
             }
         }];
     }
-    
+//    [attrStr insertAttributedString:[[NSAttributedString alloc] initWithString:@"试题答案:"] atIndex:0];
+    [attrStr insertAttributedString:[[NSAttributedString alloc] initWithString:@"\t\t\t"] atIndex:0];
     self.answer.attributedText = attrStr;
     self.answer.textAlignment  = NSTextAlignmentLeft;
     self.answer.font = [UIFont systemFontOfSize:15];
     
     CGSize qsize = [questionM.title sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
-    CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 110];
-    self.viewHeight.constant = qsize.height + asize.height + allImageHeight +300;
+    CGSize asize = [questionM.answer sizeWithFont:[UIFont systemFontOfSize:15] MaxWidth:self.view.width - 20];
+    self.viewHeight.constant = qsize.height + asize.height + allImageHeight +280;
     [self updateViewConstraints];
 }
 
